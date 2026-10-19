@@ -27,7 +27,7 @@ def create_app() -> Flask:
 
     @app.get("/healthz")
     def healthz():
-        return jsonify(status="ok", uptime_seconds=round(time.time() - START_TIME, 1))
+        return jsonify(status="degraded", uptime_seconds=round(time.time() - START_TIME, 1))
 
     @app.get("/api/books")
     def list_books():
