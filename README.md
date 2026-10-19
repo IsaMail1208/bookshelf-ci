@@ -4,7 +4,15 @@ Student: Ismailbek Nurdzhanov (`IsaMail1208`)
 
 [![CI](https://github.com/IsaMail1208/bookshelf-ci/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/IsaMail1208/bookshelf-ci/actions/workflows/ci.yml)
 
-**Green run:** GREEN_RUN_LINK
+**Green run:** <https://github.com/IsaMail1208/bookshelf-ci/actions/runs/39254944570>
+(all jobs passed: lint, test on 3.11/3.12/3.13, build; artifacts
+`test-results-py3.11`, `test-results-py3.12`, `test-results-py3.13`,
+`image-digest`)
+
+**Red run (failing test):** <https://github.com/IsaMail1208/bookshelf-ci/actions/runs/39255348916>
+from the demo pull request
+[IsaMail1208/bookshelf-ci#1](https://github.com/IsaMail1208/bookshelf-ci/pull/1),
+which intentionally broke `/healthz`. It was closed, not merged.
 
 GitHub only runs workflows from `.github/workflows/` at the root of a
 repository, so a workflow inside this course folder can never run. The same
@@ -59,5 +67,15 @@ pytest exit code: 1
 ```
 
 A non-zero exit code fails the `test` step, `fail-fast` cancels the other
-matrix jobs, and `build` (which `needs: test`) is skipped. See `CI.md` for the
-details of each job.
+matrix jobs, and `build` (which `needs: test`) is skipped. This is exactly what
+happened in the red run on GitHub:
+
+| Job | Result |
+| --- | --- |
+| Lint (ruff) | success |
+| Test (Python 3.13) | **failure** |
+| Test (Python 3.12) | cancelled (fail-fast) |
+| Test (Python 3.11) | cancelled (fail-fast) |
+| Build image | skipped |
+
+See `CI.md` for the details of each job.
