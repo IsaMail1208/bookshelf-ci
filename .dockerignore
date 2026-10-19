@@ -1,0 +1,32 @@
+# VCS
+.git
+.gitignore
+
+# Python caches and virtualenvs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node (in case of a JS frontend)
+node_modules/
+
+# Secrets and local config
+.env
+.env.*
+
+# Test output and coverage
+.coverage
+htmlcov/
+coverage.xml
+test-results/
+*.log
+
+# Docs and build scripts are not needed inside the image
+README.md
+*.sh
+Dockerfile*
+.dockerignore
